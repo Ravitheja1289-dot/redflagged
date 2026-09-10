@@ -172,24 +172,6 @@ export default function ReportDetail({ report, isModal = false }: { report: any;
           </div>
           <button onClick={() => setReplyTo(comment.id)} className="text-[11px] font-bold text-secondary hover:text-foreground transition-colors">REPLY</button>
           <button onClick={() => setFlagTarget({ type: 'COMMENT', id: comment.id })} className="text-[11px] font-bold text-secondary opacity-0 group-hover:opacity-100 hover:text-accent transition-all">REPORT</button>
-          {isAdmin && (
-            <button
-              onClick={async () => {
-                if (confirm("Admin: Delete this comment?")) {
-                  const res = await fetch(`/api/admin/comments/${comment.id}`, { method: "DELETE" });
-                  if (res.ok) {
-                    toast.success("Comment deleted");
-                    setComments(prev => prev.filter(c => c.id !== comment.id));
-                  } else {
-                    toast.error("Failed to delete comment");
-                  }
-                }
-              }}
-              className="text-[11px] font-bold text-rose-400 hover:text-rose-300 transition-colors"
-            >
-              DELETE
-            </button>
-          )}
         </div>
         {comment.children && comment.children.length > 0 && (
           <div className="mt-2">
