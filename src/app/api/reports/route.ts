@@ -5,6 +5,7 @@ import { generateManagementToken, hashToken } from '@/lib/crypto';
 
 // Validation schema for report submission
 const reportSchema = z.object({
+  title: z.string().max(150).optional().default("Untitled Experience"),
   incidentTypeSlugs: z.array(z.string()).min(1),
   contextSlug: z.string().min(1),
   city: z.string().min(1).max(100),
@@ -31,6 +32,7 @@ export async function POST(request: Request) {
 
     // Call the RPC function to insert everything in a transaction
     const { data: reportId, error } = await supabase.rpc('submit_report', {
+      p_title: validatedData.title,
       p_context_slug: validatedData.contextSlug,
       p_city: validatedData.city,
       p_incident_year: validatedData.incidentYear,
@@ -83,7 +85,7 @@ export async function GET(request: Request) {
     const { data, error, count } = await publicSupabase
       .from('reports')
       .select(`
-        id, city, incident_year, public_pseudonym, narrative, advice, published_at,
+        id, title, city, incident_year, public_pseudonym, narrative, advice, published_at,
         contexts(name),
         report_incident_types(incident_types(name)),
         report_behaviors(behaviors(name))
@@ -99,6 +101,7 @@ export async function GET(request: Request) {
 
     const formattedReports = data.map((row: any) => ({
       id: row.id,
+      title: row.title,
       incidentTypes: row.report_incident_types.map((r: any) => (r.incident_types as any).name),
       context: (row.contexts as any)?.name || 'Unknown',
       city: row.city,

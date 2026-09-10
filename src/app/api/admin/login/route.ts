@@ -5,8 +5,13 @@ export async function POST(request: Request) {
   try {
     const { username, password } = await request.json();
 
-    const expectedUsername = process.env.ADMIN_USERNAME || 'admin@123';
-    const expectedPassword = process.env.ADMIN_PASSWORD || 'ravithejareddy1289abhilash@!';
+    const expectedUsername = process.env.ADMIN_USERNAME;
+    const expectedPassword = process.env.ADMIN_PASSWORD;
+
+    if (!expectedUsername || !expectedPassword) {
+      console.error("ADMIN_USERNAME or ADMIN_PASSWORD is not configured in environment variables.");
+      return NextResponse.json({ error: 'Admin credentials not configured' }, { status: 500 });
+    }
 
     if (username === expectedUsername && password === expectedPassword) {
       const token = await signAdminToken();

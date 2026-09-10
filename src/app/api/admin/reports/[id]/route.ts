@@ -52,6 +52,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
         // 2. Update main report
         const { error: repErr } = await supabase.from('reports')
           .update({
+            title: rev.title,
             narrative: rev.narrative,
             advice: rev.advice,
             city: rev.city,
@@ -76,5 +77,67 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   } catch (error: any) {
     console.error('Admin update error:', error);
     return NextResponse.json({ error: error.message || 'Internal error' }, { status: 500 });
+  }
+}
+
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  try {
+    const { id } = await params;
+    const supabase = getServiceSupabase();
+
+    // Clean up relations
+    await supabase.from('report_incident_types').delete().eq('report_id', id);
+    await supabase.from('report_behaviors').delete().eq('report_id', id);
+    await supabase.from('report_votes').delete().eq('report_id', id);
+    
+    // Get comment ids to delete comment votes
+    const { data: comments } = await supabase.from('comments').select('id').eq('report_id', id);
+    if (comments && comments.length > 0) {
+      const commentIds = comments.map(c => c.id);
+      await supabase.from('comment_votes').delete().in('comment_id', commentIds);
+      await supabase.from('flags').delete().eq('target_type', 'COMMENT').in('target_id', commentIds);
+    }
+
+    await supabase.from('comments').delete().eq('report_id', id);
+    await supabase.from('flags').delete().eq('target_type', 'REPORT').eq('target_id', id);
+    await supabase.from('report_revisions').delete().eq('report_id', id);
+
+    const { error } = await supabase.from('reports').delete().eq('id', id);
+    if (error) throw error;
+
+    return NextResponse.json({ success: true });
+  } catch (error: any) {
+    console.error('Admin delete report error:', error);
+    return NextResponse.json({ error: error.message || 'Failed to delete report' }, { status: 500 });
+  }
+}
+
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  try {
+    const { id } = await params;
+    const body = await request.json();
+    const { title, narrative, city, advice, incident_year } = body;
+
+    const supabase = getServiceSupabase();
+    const updateData: any = {};
+    if (typeof title === 'string') updateData.title = title.trim();
+    if (typeof narrative === 'string') updateData.narrative = narrative.trim();
+    if (typeof city === 'string') updateData.city = city.trim();
+    if (typeof advice === 'string') updateData.advice = advice.trim();
+    if (typeof incident_year === 'number') updateData.incident_year = incident_year;
+
+    const { data, error } = await supabase
+      .from('reports')
+      .update(updateData)
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    return NextResponse.json({ success: true, report: data });
+  } catch (error: any) {
+    console.error('Admin edit report error:', error);
+    return NextResponse.json({ error: error.message || 'Failed to edit report' }, { status: 500 });
   }
 }

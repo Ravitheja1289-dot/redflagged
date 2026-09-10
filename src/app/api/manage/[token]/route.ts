@@ -26,7 +26,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ toke
     const { data: report, error: reportError } = await supabase
       .from('reports')
       .select(`
-        id, city, incident_year, public_pseudonym, narrative, advice, status, moderator_feedback,
+        id, title, city, incident_year, public_pseudonym, narrative, advice, status, moderator_feedback,
         contexts(slug),
         report_incident_types(incident_types(slug)),
         report_behaviors(behaviors(slug))
@@ -41,7 +41,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ toke
     // Check if there is a pending revision
     const { data: revision } = await supabase
       .from('report_revisions')
-      .select('status, created_at, moderator_feedback')
+      .select('status, created_at, moderator_feedback, title')
       .eq('report_id', reportId)
       .eq('status', 'PENDING')
       .order('created_at', { ascending: false })
@@ -51,6 +51,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ toke
     return NextResponse.json({
       report: {
         id: report.id,
+        title: revision?.title || report.title,
         status: report.status,
         city: report.city,
         year: report.incident_year,
@@ -71,6 +72,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ toke
 }
 
 const editSchema = z.object({
+  title: z.string().min(3).max(150),
   narrative: z.string().min(10).max(10000),
   advice: z.string().max(5000).optional(),
   city: z.string().min(1).max(100),
@@ -103,6 +105,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ to
       .from('report_revisions')
       .insert({
         report_id: reportId,
+        title: validatedData.title,
         narrative: validatedData.narrative,
         advice: validatedData.advice || '',
         city: validatedData.city,

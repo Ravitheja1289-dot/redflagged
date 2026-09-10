@@ -8,7 +8,7 @@ export async function GET() {
   const { data: newReports, error: newError } = await supabase
     .from('reports')
     .select(`
-      id, city, incident_year, narrative, advice, status, public_pseudonym, created_at, moderator_feedback,
+      id, title, city, incident_year, narrative, advice, status, public_pseudonym, created_at, moderator_feedback,
       contexts(name),
       report_incident_types(incident_types(name)),
       report_behaviors(behaviors(name))
@@ -24,7 +24,7 @@ export async function GET() {
   const { data: revisions, error: revError } = await supabase
     .from('report_revisions')
     .select(`
-      id, report_id, narrative, advice, city, incident_year, status, created_at, moderator_feedback,
+      id, report_id, title, narrative, advice, city, incident_year, status, created_at, moderator_feedback,
       reports(public_pseudonym, contexts(name), report_incident_types(incident_types(name)), report_behaviors(behaviors(name)))
     `)
     .eq('status', 'PENDING')
@@ -39,6 +39,7 @@ export async function GET() {
     type: 'NEW_REPORT',
     id: row.id,
     reportId: row.id,
+    title: row.title,
     city: row.city,
     year: row.incident_year,
     narrative: row.narrative,
@@ -56,6 +57,7 @@ export async function GET() {
     type: 'REVISION',
     id: row.id,
     reportId: row.report_id,
+    title: row.title,
     city: row.city,
     year: row.incident_year,
     narrative: row.narrative,

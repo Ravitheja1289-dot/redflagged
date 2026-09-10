@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { toast } from "sonner";
+import { FormattedText } from "@/components/FormattedText";
 
 export default function ManageReportPage() {
   const { token } = useParams();
@@ -13,7 +14,7 @@ export default function ManageReportPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const [editData, setEditData] = useState({ narrative: "", advice: "", city: "", incidentYear: 0 });
+  const [editData, setEditData] = useState({ title: "", narrative: "", advice: "", city: "", incidentYear: 0 });
   const [isDeleting, setIsDeleting] = useState(false);
   const [submitError, setSubmitError] = useState("");
 
@@ -25,6 +26,7 @@ export default function ManageReportPage() {
         setReport({ ...data.report, feedback: data.feedback });
         setHasPending(data.hasPendingRevision);
         setEditData({
+          title: data.report.title || "",
           narrative: data.report.narrative,
           advice: data.report.advice || "",
           city: data.report.city,
@@ -159,6 +161,15 @@ export default function ManageReportPage() {
           {submitError && <div className="text-accent text-sm">{submitError}</div>}
           
           <div className="grid grid-cols-2 gap-4">
+            <div className="col-span-2">
+              <label className="block text-sm font-medium text-foreground mb-2">Title</label>
+              <input 
+                type="text" 
+                value={editData.title} 
+                onChange={e => setEditData({...editData, title: e.target.value})}
+                className="w-full p-3 border border-soft-border rounded-lg bg-background" 
+              />
+            </div>
             <div>
               <label className="block text-sm font-medium text-foreground mb-2">City</label>
               <input 
@@ -206,6 +217,10 @@ export default function ManageReportPage() {
         </form>
       ) : (
         <div className="bg-surface border border-soft-border p-6 rounded-2xl space-y-6">
+          <div>
+            <h2 className="text-2xl font-bold text-foreground mb-2">{report.title || "Untitled Experience"}</h2>
+          </div>
+          
           <div className="grid grid-cols-2 gap-y-6">
             <div>
               <span className="text-xs text-secondary uppercase tracking-wider block mb-1">City</span>
@@ -219,13 +234,17 @@ export default function ManageReportPage() {
           
           <div>
             <span className="text-xs text-secondary uppercase tracking-wider block mb-2">Narrative</span>
-            <p className="text-foreground leading-relaxed whitespace-pre-wrap">{report.narrative}</p>
+            <div className="text-foreground leading-relaxed">
+              <FormattedText text={report.narrative} className="space-y-4" />
+            </div>
           </div>
 
           {report.advice && report.advice.trim().length > 0 && (
             <div>
               <span className="text-xs text-secondary uppercase tracking-wider block mb-2">Advice</span>
-              <p className="text-foreground leading-relaxed italic">{report.advice}</p>
+              <div className="text-foreground leading-relaxed italic">
+                <FormattedText text={report.advice} className="space-y-2" />
+              </div>
             </div>
           )}
 
