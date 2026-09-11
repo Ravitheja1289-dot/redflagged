@@ -50,19 +50,15 @@ Follow these steps to claim and verify RedFlaggers in Google Search Console:
    ```
 4. Click **Continue**.
 
-### Step 2: HTML Tag Verification (Automated via Env Var)
-1. In the verification methods modal, select **HTML tag**.
-2. Copy the content code from the meta tag:
-   ```html
-   <meta name="google-site-verification" content="YOUR_VERIFICATION_STRING_HERE" />
-   ```
-   *(Only copy the token value inside `content="..."`)*
-3. Add this token to your Vercel Project Environment Variables:
-   - Key: `GOOGLE_SITE_VERIFICATION`
-   - Value: `YOUR_VERIFICATION_STRING_HERE`
-   - Environments: Production, Preview
-4. Deploy the update. Next.js automatically injects the verification tag into the root `<head>` without requiring hardcoded source code commits.
-5. In Google Search Console, click **Verify**.
+### Step 2: HTML Tag Verification
+The verification token is configured directly in [`src/app/layout.tsx`](file:///c:/Ravitheja%20Reddy/Github%20Projects%20Collab/Projects/redflag/src/app/layout.tsx):
+```html
+<meta name="google-site-verification" content="uMo8rfKq2ifc-apz3UxYsu23yJEjuYphBV-L0pz8kTA" />
+```
+- Active token: `uMo8rfKq2ifc-apz3UxYsu23yJEjuYphBV-L0pz8kTA`
+- Next.js automatically outputs this in the root HTML `<head>` on all public pages.
+- (Optional): You can also override it via the `GOOGLE_SITE_VERIFICATION` environment variable in Vercel if needed in the future.
+- In Google Search Console, simply click **Verify**.
 
 *(Alternative: Domain DNS TXT verification can be configured in your Vercel / DNS registrar settings).*
 
