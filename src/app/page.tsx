@@ -1,8 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { createClient } from '@supabase/supabase-js';
 import { PostCard } from "@/components/PostCard";
 
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  title: "RedFlaggers — Recognize the red flags",
+  description:
+    "Anonymous experiences and recognizable patterns of harassment, toxic relationships, stalking, and workplace misconduct.",
+  alternates: {
+    canonical: "/",
+  },
+};
 
 async function getReports() {
   const publicSupabase = createClient(
@@ -60,8 +70,8 @@ export default async function Home() {
   const reports = await getReports();
 
   return (
-    <div className="w-full bg-surface min-h-screen pb-20">
-      <div className="max-w-2xl mx-auto md:pt-8 space-y-6 md:space-y-8">
+    <div className="w-full bg-background min-h-screen pb-20">
+      <div className="max-w-2xl mx-auto pt-4 sm:pt-6 md:pt-8 px-3.5 sm:px-4 md:px-0 space-y-4 sm:space-y-6 md:space-y-8">
         {reports.length === 0 ? (
           <div className="text-center py-20 px-4">
             <p className="text-foreground font-medium mb-2">No experiences have been published yet.</p>

@@ -108,7 +108,7 @@ export function PostCard({
   if (isDeleted) return null;
 
   return (
-    <article className="bg-surface apple-card md:rounded-3xl border border-soft-border shadow-sm overflow-hidden flex flex-col mb-6 transition-all duration-200">
+    <article className="bg-surface apple-card rounded-2xl sm:rounded-3xl border border-soft-border shadow-sm overflow-hidden flex flex-col transition-all duration-200">
       {/* Header */}
       <div className="p-4 flex justify-between items-center border-b border-soft-border relative">
         <div className="flex items-center gap-3">
@@ -266,22 +266,27 @@ export function PostCard({
           <button 
             type="button"
             onClick={() => onOpenComments(report)}
+            aria-label="Comments"
             className="flex items-center gap-1.5 text-secondary hover:text-foreground transition-all duration-120 active:scale-95 bg-surface rounded-full px-3 py-1.5 border border-soft-border cursor-pointer"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
             </svg>
             <span className="text-xs font-bold">
-              {report.commentCount === 1 ? '1 Comment' : `${report.commentCount || 0} Comments`}
+              {report.commentCount || 0}
             </span>
           </button>
         ) : (
-          <Link href={`/reports/${report.id}`} className="flex items-center gap-1.5 text-secondary hover:text-foreground transition-all duration-120 active:scale-95 bg-surface rounded-full px-3 py-1.5 border border-soft-border">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <Link 
+            href={`/reports/${report.id}`} 
+            aria-label="Comments"
+            className="flex items-center gap-1.5 text-secondary hover:text-foreground transition-all duration-120 active:scale-95 bg-surface rounded-full px-3 py-1.5 border border-soft-border"
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
             </svg>
             <span className="text-xs font-bold">
-              {report.commentCount === 1 ? '1 Comment' : `${report.commentCount || 0} Comments`}
+              {report.commentCount || 0}
             </span>
           </Link>
         )}

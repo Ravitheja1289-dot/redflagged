@@ -1,4 +1,20 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Our Mission & Methodology",
+  description:
+    "Learn about RedFlaggers: an anonymous, community-driven platform for recognizing behavioral warning signs, toxic patterns, and relationship red flags.",
+  alternates: {
+    canonical: "/about",
+  },
+  openGraph: {
+    title: "About RedFlaggers — Mission & Methodology",
+    description:
+      "An educational resource built from anonymous experiences to help people recognize warning signs and patterns.",
+    url: "https://redflaggers.vercel.app/about",
+  },
+};
 
 export default function AboutPage() {
   return (

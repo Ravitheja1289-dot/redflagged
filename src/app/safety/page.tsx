@@ -1,3 +1,20 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Safety & Emergency Resources",
+  description:
+    "Safety guidelines, emergency resources, and quick exit tools for visitors and individuals navigating unsafe situations.",
+  alternates: {
+    canonical: "/safety",
+  },
+  openGraph: {
+    title: "Safety & Emergency Resources | RedFlaggers",
+    description:
+      "Safety guidelines, emergency resources, and quick exit tools for visitors and individuals navigating unsafe situations.",
+    url: "https://redflaggers.vercel.app/safety",
+  },
+};
+
 export default function SafetyPage() {
   return (
     <div className="container mx-auto px-4 py-12 max-w-3xl">

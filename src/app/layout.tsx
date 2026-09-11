@@ -9,19 +9,80 @@ const montserrat = Montserrat({
   subsets: ["latin"],
 });
 
+import { Header } from "@/components/Header";
+import { LoadingScreen } from "@/components/LoadingScreen";
+import { StructuredData } from "@/components/StructuredData";
+
 export const metadata: Metadata = {
-  title: "RedFlaggers",
-  description: "Recognize the red flags. Anonymous experiences of harassment, abuse, assault, stalking, and unsafe behavior — shared to help others recognize patterns.",
+  metadataBase: new URL("https://redflaggers.vercel.app"),
+  title: {
+    default: "RedFlaggers — Recognize the red flags",
+    template: "%s | RedFlaggers",
+  },
+  description:
+    "Anonymous experiences. Recognizable patterns. Read, share, and recognize patterns of harassment, toxic relationships, stalking, and unsafe behavior.",
+  applicationName: "RedFlaggers",
+  keywords: [
+    "red flags",
+    "relationship red flags",
+    "workplace red flags",
+    "dating red flags",
+    "toxic relationship patterns",
+    "recognize warning signs",
+    "anonymous experiences",
+    "safety warnings",
+  ],
+  authors: [{ name: "RedFlaggers" }],
+  creator: "RedFlaggers",
+  publisher: "RedFlaggers",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://redflaggers.vercel.app",
+    siteName: "RedFlaggers",
+    title: "RedFlaggers — Recognize the red flags",
+    description:
+      "Anonymous experiences. Recognizable patterns. Read, share, and recognize patterns of harassment, toxic relationships, and unsafe behavior.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "RedFlaggers — Recognize the red flags",
+    description:
+      "Anonymous experiences. Recognizable patterns. Read, share, and recognize patterns of harassment, toxic relationships, and unsafe behavior.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  ...(process.env.GOOGLE_SITE_VERIFICATION
+    ? {
+        verification: {
+          google: process.env.GOOGLE_SITE_VERIFICATION,
+        },
+      }
+    : {}),
 };
 
 export const viewport = {
-  width: 'device-width',
+  width: "device-width",
   initialScale: 1,
   maximumScale: 1,
 };
-
-import { Header } from "@/components/Header";
-import { LoadingScreen } from "@/components/LoadingScreen";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -30,6 +91,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${montserrat.variable} h-full antialiased dark`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
+        <StructuredData />
         <LoadingScreen />
         <Header />
         <main className="flex-1 flex flex-col">{children}</main>
