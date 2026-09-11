@@ -18,8 +18,19 @@ export const metadata: Metadata = {
 export default function SafetyPage() {
   return (
     <div className="container mx-auto px-4 py-12 max-w-3xl">
+      <div className="flex flex-col items-center justify-center text-center mb-12 space-y-3 mt-4">
+        <div className="inline-flex items-center justify-center p-4 mb-2 bg-rose-50 dark:bg-rose-950/30 rounded-full ring-1 ring-rose-100 dark:ring-rose-900/50 shadow-sm">
+          <span className="text-2xl animate-pulse" style={{ animationDuration: '3s' }}>❤️</span>
+        </div>
+        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-foreground">
+          You are not alone.
+        </h1>
+        <p className="text-lg text-secondary max-w-xl mx-auto mt-4 leading-relaxed">
+          Whatever you are going through, your feelings are valid. This is a safe space to find clarity, resources, and support.
+        </p>
+      </div>
       <div className="bg-accent-secondary/20 border border-accent-secondary/30 rounded-2xl p-8 mb-12">
-        <h1 className="text-3xl font-bold text-accent mb-4">Emergency Support</h1>
+        <h2 className="text-3xl font-bold text-accent mb-4">Emergency Support</h2>
         <p className="text-foreground text-lg mb-6">
           RedFlaggers is not an emergency response service. If you are in immediate danger, please contact authorities immediately.
         </p>

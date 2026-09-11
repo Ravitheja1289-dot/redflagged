@@ -481,7 +481,7 @@ export default function SubmitPage() {
                 <CustomSelect
                   value={formData.incidentYear}
                   onChange={val => setFormData({...formData, incidentYear: parseInt(val)})}
-                  options={[2026, 2025, 2024, 2023, 2022, 2021, 2020].map(y => ({ label: String(y), value: y }))}
+                  options={Array.from({ length: 2026 - 1980 + 1 }, (_, i) => 2026 - i).map(y => ({ label: String(y), value: y }))}
                   placeholder="Select year"
                 />
               </div>
