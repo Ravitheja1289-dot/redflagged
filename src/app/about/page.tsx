@@ -48,7 +48,7 @@ export default function AboutPage() {
         <div className="bg-surface border border-soft-border p-8 rounded-2xl mt-12 text-center">
           <h3 className="text-xl font-bold text-foreground mb-4">Help build awareness</h3>
           <p className="mb-6">Your experience could help someone else recognize a dangerous pattern.</p>
-          <Link href="/submit" className="inline-block px-6 py-3 bg-accent text-surface rounded-full font-medium hover:bg-accent/90 transition-colors">
+          <Link href="/submit" className="inline-block px-6 py-2.5 bg-foreground text-surface rounded-full text-xs font-semibold hover:bg-white active:scale-95 transition-all duration-100 shadow-md cursor-pointer">
             Share anonymously
           </Link>
         </div>

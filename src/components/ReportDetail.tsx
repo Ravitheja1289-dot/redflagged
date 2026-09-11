@@ -161,13 +161,27 @@ export default function ReportDetail({ report, isModal = false }: { report: any;
           <FormattedText text={comment.body} className="space-y-2" />
         </div>
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-1">
-            <button onClick={() => handleVote(1)} className={`w-6 h-6 flex items-center justify-center rounded-full hover:bg-background transition-colors ${userVote === 1 ? 'text-orange-500' : 'text-secondary'}`}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+          <div className="flex items-center gap-1 bg-surface rounded-full p-0.5 border border-soft-border">
+            <button 
+              onClick={() => handleVote(1)} 
+              className={`w-6 h-6 flex items-center justify-center rounded-full hover:bg-white/[0.06] transition-all duration-100 active:scale-75 cursor-pointer ${
+                userVote === 1 ? 'text-[#E53935] bg-[#E53935]/15' : 'text-secondary hover:text-foreground'
+              }`}
+              aria-label="Upvote comment"
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
             </button>
-            <span className={`text-xs font-bold w-4 text-center ${userVote === 1 ? 'text-orange-500' : userVote === -1 ? 'text-indigo-500' : 'text-secondary'}`}>{score}</span>
-            <button onClick={() => handleVote(-1)} className={`w-6 h-6 flex items-center justify-center rounded-full hover:bg-background transition-colors ${userVote === -1 ? 'text-indigo-500' : 'text-secondary'}`}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+            <span className={`text-xs font-bold w-4 text-center tabular-nums transition-colors duration-150 ${
+              userVote === 1 ? 'text-[#E53935]' : userVote === -1 ? 'text-indigo-400' : 'text-secondary'
+            }`}>{score}</span>
+            <button 
+              onClick={() => handleVote(-1)} 
+              className={`w-6 h-6 flex items-center justify-center rounded-full hover:bg-white/[0.06] transition-all duration-100 active:scale-75 cursor-pointer ${
+                userVote === -1 ? 'text-indigo-400 bg-indigo-500/15' : 'text-secondary hover:text-foreground'
+              }`}
+              aria-label="Downvote comment"
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
             </button>
           </div>
           <button onClick={() => setReplyTo(comment.id)} className="text-[11px] font-bold text-secondary hover:text-foreground transition-colors">REPLY</button>
@@ -237,12 +251,12 @@ export default function ReportDetail({ report, isModal = false }: { report: any;
             <div className="flex justify-between items-center pt-5 border-t border-soft-border text-xs text-secondary">
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-1 bg-surface rounded-full p-0.5 border border-soft-border">
-                  <button onClick={() => handleReportVote(1)} className={`w-6 h-6 flex items-center justify-center rounded-full hover:bg-background transition-colors ${reportUserVote === 1 ? 'text-orange-500' : 'text-secondary'}`}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                  <button onClick={() => handleReportVote(1)} className={`w-7 h-7 flex items-center justify-center rounded-full hover:bg-white/[0.06] transition-all duration-100 active:scale-75 cursor-pointer ${reportUserVote === 1 ? 'text-[#E53935] bg-[#E53935]/15' : 'text-secondary hover:text-foreground'}`}>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
                   </button>
-                  <span className={`text-xs font-bold w-4 text-center ${reportUserVote === 1 ? 'text-orange-500' : reportUserVote === -1 ? 'text-indigo-500' : 'text-foreground'}`}>{reportScore}</span>
-                  <button onClick={() => handleReportVote(-1)} className={`w-6 h-6 flex items-center justify-center rounded-full hover:bg-background transition-colors ${reportUserVote === -1 ? 'text-indigo-500' : 'text-secondary'}`}>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                  <span className={`text-xs font-bold w-5 text-center tabular-nums transition-colors duration-150 ${reportUserVote === 1 ? 'text-[#E53935]' : reportUserVote === -1 ? 'text-indigo-400' : 'text-foreground'}`}>{reportScore}</span>
+                  <button onClick={() => handleReportVote(-1)} className={`w-7 h-7 flex items-center justify-center rounded-full hover:bg-white/[0.06] transition-all duration-100 active:scale-75 cursor-pointer ${reportUserVote === -1 ? 'text-indigo-400 bg-indigo-500/15' : 'text-secondary hover:text-foreground'}`}>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
                   </button>
                 </div>
                 <div className="flex items-center gap-2 border-l border-soft-border pl-4">
@@ -303,7 +317,7 @@ export default function ReportDetail({ report, isModal = false }: { report: any;
               <button 
                 onClick={handleCommentSubmit}
                 disabled={isSubmitting || !newComment.trim()}
-                className="bg-foreground text-surface px-3 py-1.5 rounded-full text-xs font-medium hover:bg-foreground/90 transition-colors disabled:opacity-50"
+                className="bg-foreground text-surface px-4 py-1.5 rounded-full text-xs font-semibold hover:bg-white active:scale-95 transition-all duration-100 disabled:opacity-40 cursor-pointer"
               >
                 {isSubmitting ? "Posting..." : "Post"}
               </button>

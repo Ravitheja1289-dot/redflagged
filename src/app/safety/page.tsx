@@ -44,7 +44,7 @@ export default function SafetyPage() {
             </div>
             <a 
               href="https://google.com" 
-              className="px-6 py-2 bg-secondary/10 hover:bg-secondary/20 text-foreground rounded-full font-medium transition-colors"
+              className="px-6 py-2.5 bg-white/[0.08] hover:bg-white/[0.14] text-foreground rounded-full font-semibold text-xs active:scale-95 transition-all duration-100 border border-white/[0.1] shadow-sm cursor-pointer"
             >
               Quick Exit
             </a>

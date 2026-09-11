@@ -73,9 +73,12 @@ export default async function Home() {
     <div className="w-full bg-background min-h-screen pb-20">
       <div className="max-w-2xl mx-auto pt-4 sm:pt-6 md:pt-8 px-3.5 sm:px-4 md:px-0 space-y-4 sm:space-y-6 md:space-y-8">
         {reports.length === 0 ? (
-          <div className="text-center py-20 px-4">
-            <p className="text-foreground font-medium mb-2">No experiences have been published yet.</p>
-            <p className="text-secondary text-sm">Reports are currently under review.</p>
+          <div className="text-center py-16 px-6 rounded-3xl bg-surface border border-soft-border shadow-sm">
+            <div className="w-12 h-12 rounded-2xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center mx-auto mb-4 text-[#E53935] text-xl">
+              ⚑
+            </div>
+            <p className="text-foreground font-semibold text-base mb-1.5">No experiences published yet</p>
+            <p className="text-secondary text-xs sm:text-sm max-w-sm mx-auto">Submitted reports are currently being reviewed by community moderators.</p>
           </div>
         ) : (
           reports.map((report) => (

@@ -109,7 +109,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             Built by <a href="https://ravi1289portfolio.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-foreground hover:underline transition-colors">Ravi</a>
           </div>
         </footer>
-        <Toaster position="bottom-right" richColors theme="light" />
+        <Toaster 
+          position="bottom-center" 
+          richColors 
+          theme="dark"
+          toastOptions={{
+            className: "!rounded-2xl !border !border-white/[0.08] !bg-[#15181e]/90 !backdrop-blur-xl !shadow-2xl text-foreground",
+          }} 
+        />
       </body>
     </html>
   );

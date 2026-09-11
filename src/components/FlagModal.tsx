@@ -118,7 +118,7 @@ export function FlagModal({ isOpen, onClose, target }: FlagModalProps) {
           <div className="space-y-3">
             <label className="block text-sm font-medium text-foreground">Why are you reporting this?</label>
             {reasons.map(r => (
-              <label key={r} className="flex items-center gap-3 cursor-pointer p-2 rounded-lg hover:bg-background transition-colors">
+              <label key={r} className="flex items-center gap-3 cursor-pointer p-2.5 rounded-xl hover:bg-white/[0.04] active:scale-[0.985] transition-all">
                 <input 
                   type="radio" 
                   name="reason" 
@@ -138,24 +138,24 @@ export function FlagModal({ isOpen, onClose, target }: FlagModalProps) {
               id="details"
               value={details}
               onChange={e => setDetails(e.target.value)}
-              className="w-full p-3 border border-soft-border rounded-lg bg-background text-sm resize-none focus:outline-none focus:border-accent"
+              className="w-full p-3 border border-soft-border rounded-xl bg-background text-sm resize-none focus:outline-none focus:border-accent/60"
               rows={3}
               placeholder="Provide more context..."
             />
           </div>
 
-          <div className="pt-2 flex justify-end gap-3">
+          <div className="pt-2 flex justify-end gap-2.5">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 border border-soft-border rounded-lg text-sm font-medium hover:bg-background transition-colors"
+              className="px-4 py-2 border border-soft-border rounded-xl text-xs font-semibold hover:bg-white/[0.06] active:scale-95 transition-all cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={!reason || isSubmitting}
-              className="px-4 py-2 bg-foreground text-surface rounded-lg text-sm font-medium hover:bg-foreground/90 transition-colors disabled:opacity-50"
+              className="px-4 py-2 bg-foreground text-surface rounded-xl text-xs font-semibold hover:bg-white active:scale-95 transition-all disabled:opacity-40 cursor-pointer"
             >
               {isSubmitting ? "Submitting..." : "Submit Report"}
             </button>
